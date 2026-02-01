@@ -161,6 +161,7 @@ mat-form-field {
 .unit-info {
     font-size: 13px;
     line-height: 1.6;
+    grid-column: 1 / -1;
 }
 
 .unit-info span {
