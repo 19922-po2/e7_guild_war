@@ -14,6 +14,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class App {
   protected readonly title = signal('e7_gw');
   //ng b --output-path docs --base-href /e7_gw/
+  //copy files from browser to docs folder
 
   data: any;
   units = [];
@@ -32,9 +33,8 @@ export class App {
       .subscribe(data => {
         this.parsedData = this.parseCSV(data);
         this.data = this.parseComps(this.parsedData);
-        //console.log(this.parseComps(this.parsedData));
         this.units = Array.from(new Set(this.data.flatMap((d: any) => d.targets)));
-        //console.log("targets: ", new Set(this.data.flatMap((d: any) => d.targets)));
+        console.log("loaded data:", this.data);
       });
   }
 
