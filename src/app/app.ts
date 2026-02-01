@@ -4,16 +4,30 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule, HttpClientModule],
+  imports: [RouterOutlet, CommonModule, FormsModule, HttpClientModule, FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    AsyncPipe,],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('e7_gw');
-  //ng b --output-path docs --base-href /e7_gw/
+  //ng b --output-path docs --base-href /e7_guild_war/
   //copy files from browser to docs folder
 
   data: any;
@@ -22,23 +36,58 @@ export class App {
   selectedUnit2: string = "";
   selectedUnit3: string = "";
   solution: any = null;
+  isLoading = signal(false);
   id = "1aAIq86-QbH_3wBFETPTfyEgoX3XqGLIm_ENvAdvM8ks"
   guid = "290342333";
   parsedData: any[] = [];
+  /*  */
+  myControl1 = new FormControl('');
+  myControl2 = new FormControl('');
+  myControl3 = new FormControl('');
+  filteredOptions1: Observable<string[]>;
+  filteredOptions2: Observable<string[]>;
+  filteredOptions3: Observable<string[]>;
 
-  constructor(private _sanitizer: DomSanitizer, private http: HttpClient) { }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.units.filter((option: any) => option.toLowerCase().includes(filterValue));
+  }
+  /*  */
+
+  constructor(private _sanitizer: DomSanitizer, private http: HttpClient) {
+    this.filteredOptions1 = this.myControl1.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+    this.filteredOptions2 = this.myControl2.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+    this.filteredOptions3 = this.myControl3.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
 
   ngOnInit() {
+    this.isLoading.set(true);
     this.http.get(`https://docs.google.com/spreadsheets/d/${this.id}/export?format=csv&gid=${this.guid}`, { responseType: 'text' })
       .subscribe(data => {
         this.parsedData = this.parseCSV(data);
         this.data = this.parseComps(this.parsedData);
         this.units = Array.from(new Set(this.data.flatMap((d: any) => d.targets)));
         console.log("loaded data:", this.data);
+        setTimeout(() => {
+          this.isLoading.set(false);
+        }, 2000);
       });
   }
 
   clear() {
+    this.myControl1.setValue("");
+    this.myControl2.setValue("");
+    this.myControl3.setValue("");
     this.selectedUnit1 = "";
     this.selectedUnit2 = "";
     this.selectedUnit3 = "";
@@ -52,7 +101,11 @@ export class App {
   }
 
   searchSolution() {
-    const searchTargets = [this.selectedUnit1, this.selectedUnit2, this.selectedUnit3].map(t => t.toLowerCase());
+    const searchTargets = [
+      this.myControl1.value || "",
+      this.myControl2.value || "",
+      this.myControl3.value || ""
+    ].map(t => t.toLowerCase());
 
     const uniqueTargets = new Set(searchTargets);
     if (uniqueTargets.size !== 3) { return "none"; }
@@ -69,13 +122,13 @@ export class App {
   }
 
   onSelectedUnit1Change(unit1: string) {
-    this.selectedUnit1 = unit1;
+    this.selectedUnit1 = this.myControl1.value || "";
   }
   onSelectedUnit2Change(unit2: string) {
-    this.selectedUnit2 = unit2;
+    this.selectedUnit2 = this.myControl2.value || "";
   }
   onSelectedUnit3Change(unit3: string) {
-    this.selectedUnit3 = unit3;
+    this.selectedUnit3 = this.myControl3.value || "";
   }
   getUnitImageUrl(name: string) {
     return `https://epic7db.com/images/heroes/${this.getUrlUnitName(name.toLowerCase())}.webp`

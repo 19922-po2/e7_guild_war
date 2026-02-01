@@ -1,32 +1,62 @@
 <router-outlet />
 
+@if (isLoading()) {
+<div
+  style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: rgba(0,0,0,0.5);">
+  <div style="text-align: center;">
+    <mat-spinner></mat-spinner>
+    <p style="color: #CCCCCC; margin-top: 20px; font-size: 18px;">Loading data from Google Sheets...</p>
+  </div>
+</div>
+} @else {
 <div>
-  <input type="text" list="unit1" name="unit1" [(ngModel)]='selectedUnit1'
-    (change)="onSelectedUnit1Change(selectedUnit1)" />
-  <datalist id="unit1">
-    <option *ngFor="let unit of units" [value]="unit">{{unit}} </option>
-  </datalist>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Unit 1</mat-label>
+      <input type="text" placeholder="Pick one" aria-label="Unit1" matInput [formControl]="myControl1"
+        (change)="onSelectedUnit1Change(myControl1.value || '')" [matAutocomplete]="auto1">
+      <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+        @for (option of filteredOptions1 | async; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
   <br><br>
   <!--  -->
-  <input type="text" list="unit2" name="unit2" [(ngModel)]='selectedUnit2'
-    (change)="onSelectedUnit2Change(selectedUnit2)" />
-  <datalist id="unit2">
-    <option *ngFor="let unit of units">{{unit}} </option>
-  </datalist>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Unit 2</mat-label>
+      <input type="text" placeholder="Pick one" aria-label="Unit2" matInput [formControl]="myControl2"
+        (change)="onSelectedUnit2Change(myControl2.value || '')" [matAutocomplete]="auto2">
+      <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+        @for (option of filteredOptions2 | async; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
   <br><br>
   <!--  -->
-  <input type="text" list="unit3" name="unit3" [(ngModel)]='selectedUnit3'
-    (change)="onSelectedUnit3Change(selectedUnit3)" />
-  <datalist id="unit3">
-    <option *ngFor="let unit of units">{{unit}} </option>
-  </datalist>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Unit 3</mat-label>
+      <input type="text" placeholder="Pick one" aria-label="Unit3" matInput [formControl]="myControl3"
+        (change)="onSelectedUnit3Change(myControl3.value || '')" [matAutocomplete]="auto3">
+      <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+        @for (option of filteredOptions3 | async; track option) {
+        <mat-option [value]="option">{{option}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
   <br><br>
 </div>
 
-<button (click)="search()" class="seach-btn">Search</button>
+<button (click)="search()" class="search-btn">Search</button>
 <button (click)="clear()" class="clear-btn">Clear</button>
 
-<div>
+<div class="solution-container">
   <h1 style="color: #CCCCCC;">Solution:</h1>
   <!--  no solution -->
   <div *ngIf="solution === 'none'">
@@ -89,3 +119,5 @@
       </div>
     </div>
   </div>
+</div>
+}
