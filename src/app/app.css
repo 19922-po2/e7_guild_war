@@ -44,6 +44,7 @@ body {
     display: block;
     background-color: #1b1d21;
     color: #d7dbe3;
+    min-height: 100vh;
 }
 
 div>form {
@@ -183,6 +184,7 @@ mat-form-field {
 .example-form {
     min-width: 150px;
     max-width: 400px;
+    max-height: 30px;
     width: 100%;
     padding: 10px;
     margin: 0px 0;
@@ -235,6 +237,6 @@ mat-form-field {
 .solution-container {
     background-color: #1b1d21;
     color: #d7dbe3;
-    min-height: 50vh;
+    min-height: 100vh;
     padding: 16px;
 }

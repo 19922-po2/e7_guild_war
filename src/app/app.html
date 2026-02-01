@@ -106,8 +106,8 @@
         <h3>Video Footage</h3>
         <div *ngIf="solution.video">
           <div class="yt-vid">
-            <iframe width="560" height="315" [src]="getSanitizedVideo(solution.video)" frameborder="0"
-              allowfullscreen></iframe>
+            <iframe type="text/html" width="560" height="315" [src]="getSanitizedVideo(solution.video)" frameborder="0"
+              allowfullscreen id="ytplayer"></iframe>
           </div>
           <a [href]="solution.video" target="_blank">
             {{ solution.video }}
