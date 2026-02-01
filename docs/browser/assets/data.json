@@ -1,0 +1,76 @@
+[
+    {
+        "target": [
+            "Apocalypse Ravi",
+            "Boss Arunka",
+            "School Nurse Yulha"
+        ],
+        "solution": {
+            "units": [
+                {
+                    "name": "Abigail",
+                    "image_name": "abigail",
+                    "arti": "War Horn",
+                    "arti_name": "war-horn",
+                    "info": "-some bulk to survive potential Barunka counter-some Eff + 2nd EE to dbreak Barunka-War Horn for Kayron damage",
+                    "build_ss": "https://ibb.co/NBLZTYR"
+                },
+                {
+                    "name": "Shooting Star Achates",
+                    "image_name": "shooting-star-achates",
+                    "arti": "Queen's Whistle",
+                    "arti_name": "queens-whistle",
+                    "info": " -a bit faster than Kayron so she can S2 him before Abis immo runs out (>> Kayron spd * 1,06 to account for spd rng)- 200 ER so Barunka can't dbreak you- Queen's Whistle for Kayron damage",
+                    "build_ss": "https://ibb.co/cckbv3cG"
+                },
+                {
+                    "name": "Twisted Eidolon Kayron",
+                    "image_name": "twisted-eidolon-kayron",
+                    "arti": "Shepherd of the Hollow",
+                    "arti_name": "shepherd-of-the-hollow",
+                    "info": "- Base spd, max damage, no bulk, no ER- Triple Torrent or Destro/Torrent- shepherd bis",
+                    "build_ss": "https://ibb.co/pr22vCJm"
+                }
+            ],
+            "strat": "- S2 Kayron with Achates- S3 Barunka with Abigail and ideally dbreak her- S1 with Kayron until you only got 1 turn of Immortality left, then S3- S3 with Achates if needed",
+            "video": "https://www.youtube.com/embed/laQkGGnlbLw?si=rMBC8Z3e49cG6GFw"
+        }
+    },
+    {
+        "target": [
+            "Genesis Ras",
+            "Frieren",
+            "School Nurse Yulha"
+        ],
+        "solution": {
+            "units": [
+                {
+                    "name": "Belian",
+                    "image_name": "belian",
+                    "arti": "3F",
+                    "arti_name": "3f",
+                    "info": "- max spd, max HP, no def necessary- 3F is mandatory!",
+                    "build_ss": "https://ibb.co/d4jmMhW4"
+                },
+                {
+                    "name": "Elvira",
+                    "image_name": "elvira",
+                    "arti": "Bastion of Hope",
+                    "arti_name": "bastion-of-hope",
+                    "info": "-base spd (!), max ER",
+                    "build_ss": "https://ibb.co/TDvmQ9hH"
+                },
+                {
+                    "name": "Lady of the Scales",
+                    "image_name": "lady-of-the-scales",
+                    "arti": "Touch of Rekos",
+                    "arti_name": "touch-of-rekos",
+                    "info": "- max spd, max HP, no def necessary",
+                    "build_ss": "https://ibb.co/wFLLndrh"
+                }
+            ],
+            "strat": "-press buttons- save souls so you can sb Elvira S1 once she only has 1 turn of immortality left",
+            "video": "https://www.youtube.com/embed/xnMSyIp4gcA?si=tDEO6e904j3IFfmn"
+        }
+    }
+]
