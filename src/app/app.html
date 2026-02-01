@@ -2,8 +2,8 @@
 
 @if (isLoading()) {
 <div
-  style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: rgba(0,0,0,0.5);">
-  <div style="text-align: center;">
+  style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: rgba(0,0,0,0.5); flex-direction: column;">
+  <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
     <mat-spinner></mat-spinner>
     <p style="color: #CCCCCC; margin-top: 20px; font-size: 18px;">Loading data from Google Sheets...</p>
   </div>

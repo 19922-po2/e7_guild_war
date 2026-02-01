@@ -137,6 +137,8 @@ export class App {
     return `https://epic7db.com/images/artifacts/${this.getUrlArtiName(name.toLowerCase())}.webp`
   }
   getSanitizedVideo(url: string) {
+    console.log("getSanitizedVideo pre:", url);
+    console.log("getSanitizedVideo post:", this._sanitizer.bypassSecurityTrustResourceUrl(this.getEmbedUrl(url)));
     return this._sanitizer.bypassSecurityTrustResourceUrl(this.getEmbedUrl(url));
   }
   getSanitizedBuild(url: string) {
@@ -150,7 +152,7 @@ export class App {
   }
 
   getUrlUnitName(name: string) {
-    console.log("getUrlUnitName:", name);
+    //console.log("getUrlUnitName:", name);
     const map = new Map([
       ["apoc", "apocalypse-ravi"],
       ["barunka", "boss-arunka"],
