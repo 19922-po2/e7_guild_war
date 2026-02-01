@@ -136,19 +136,29 @@ export class App {
   getArtiImageUrl(name: string) {
     return `https://epic7db.com/images/artifacts/${this.getUrlArtiName(name.toLowerCase())}.webp`
   }
-  getSanitizedVideo(url: string) {
+  /* getSanitizedVideo1(url: string) {
     console.log("getSanitizedVideo pre:", url);
     console.log("getSanitizedVideo post:", this._sanitizer.bypassSecurityTrustResourceUrl(this.getEmbedUrl(url)));
     return this._sanitizer.bypassSecurityTrustResourceUrl(this.getEmbedUrl(url));
-  }
+  } */
   getSanitizedBuild(url: string) {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  getEmbedUrl(url: string) {
+  /* getEmbedUrl(url: string) {
     const match = url.match(
       /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^?&/]+)/
     );
     return match ? `https://www.youtube.com/embed/${match[1]}` : "";
+  } */
+  getSanitizedVideo(url: string) {
+    // Extract video ID from normal YouTube URL
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^?&/]+)/);
+    const videoId = match ? match[1] : '';
+
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+    // Use DomSanitizer to mark the URL as safe
+    return this._sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 
   getUrlUnitName(name: string) {
