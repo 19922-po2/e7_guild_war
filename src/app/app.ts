@@ -13,6 +13,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class App {
   protected readonly title = signal('e7_gw');
+  //ng b --output-path docs --base-href /e7_gw/
 
   data: any;
   units = [];
