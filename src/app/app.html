@@ -38,20 +38,20 @@
     <div class="strategy-layout">
       <!-- LEFT SIDE (units list) -->
       <div class="units">
-        <div class="unit-row" *ngFor="let unit of solution.solution.units">
+        <div class="unit-row" *ngFor="let unit of solution.units">
           <!-- Unit icon + name -->
           <div class="unit-meta">
-            <img class="avatar" [src]="getUnitImageUrl(unit.image_name)" />
+            <img class="avatar" [src]="getUnitImageUrl(unit.name)" />
             <div class="unit-name">{{ unit.name }}</div>
             <br /><br />
-            <a *ngIf="unit.build_ss" [href]="unit.build_ss" target="_blank" style="color:#d7dbe3;">
+            <a *ngIf="unit.build" [href]="getSanitizedBuild(unit.build)" target="_blank" style="color:#d7dbe3;">
               example build
             </a>
           </div>
 
           <!-- Unit art -->
           <div class="unit-art">
-            <img [src]="getArtiImageUrl(unit.arti_name)" />
+            <img [src]="getArtiImageUrl(unit.arti)" />
             <div class="artifact">{{ unit.arti }}</div>
           </div>
 
@@ -65,23 +65,27 @@
       </div>
     </div>
     <div class="side-panel">
-      <div class="strategy" *ngIf="solution.solution.strat">
+      <div class="strategy" *ngIf="solution.strat">
         <h3>Strategy Outline</h3>
-        <div *ngFor="let line of solution.solution.strat.split('-')">
+        <div *ngFor="let line of solution.strat.split('-')">
           <span *ngIf="line.trim()">- {{ line.trim() }}</span>
         </div>
       </div>
 
       <div class="video">
         <h3>Video Footage</h3>
-        <div class="yt-vid">
-          <iframe width="560" height="315" [src]="getSanitizedVideo(solution.solution.video)" frameborder="0"
-            allowfullscreen></iframe>
+        <div *ngIf="solution.video">
+          <div class="yt-vid">
+            <iframe width="560" height="315" [src]="getSanitizedVideo(solution.video)" frameborder="0"
+              allowfullscreen></iframe>
+          </div>
+          <a [href]="solution.video" target="_blank">
+            {{ solution.video }}
+          </a>
         </div>
-        <a [href]="solution.solution.video" target="_blank">
-          {{ solution.solution.video }}
-        </a>
+        <div *ngIf="!solution.video">
+          <p style="color: #CCCCCC;">No video available</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
