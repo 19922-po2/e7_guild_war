@@ -94,6 +94,20 @@ export class App {
     this.solution = null;
   }
 
+  clearUnit1() {
+    this.myControl1.setValue("");
+    this.selectedUnit1 = "";
+  }
+
+  clearUnit2() {
+    this.myControl2.setValue("");
+    this.selectedUnit2 = "";
+  }
+
+  clearUnit3() {
+    this.myControl3.setValue("");
+    this.selectedUnit3 = "";
+  }
   search() {
     //console.log("searching for:", this.selectedUnit1, this.selectedUnit2, this.selectedUnit3);
     this.solution = this.searchSolution();

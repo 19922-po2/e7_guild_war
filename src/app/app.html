@@ -10,46 +10,55 @@
 </div>
 } @else {
 <div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Unit 1</mat-label>
-      <input type="text" placeholder="Pick one" aria-label="Unit1" matInput [formControl]="myControl1"
-        (change)="onSelectedUnit1Change(myControl1.value || '')" [matAutocomplete]="auto1">
-      <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-        @for (option of filteredOptions1 | async; track option) {
-        <mat-option [value]="option">{{option}}</mat-option>
-        }
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
+  <div class="form-with-button">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Unit 1</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Unit1" matInput [formControl]="myControl1"
+          (change)="onSelectedUnit1Change(myControl1.value || '')" [matAutocomplete]="auto1">
+        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+          @for (option of filteredOptions1 | async; track option) {
+          <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button (click)="clearUnit1()" class="clear-input-btn">✕</button>
+  </div>
   <br><br>
   <!--  -->
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Unit 2</mat-label>
-      <input type="text" placeholder="Pick one" aria-label="Unit2" matInput [formControl]="myControl2"
-        (change)="onSelectedUnit2Change(myControl2.value || '')" [matAutocomplete]="auto2">
-      <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-        @for (option of filteredOptions2 | async; track option) {
-        <mat-option [value]="option">{{option}}</mat-option>
-        }
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
+  <div class="form-with-button">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Unit 2</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Unit2" matInput [formControl]="myControl2"
+          (change)="onSelectedUnit2Change(myControl2.value || '')" [matAutocomplete]="auto2">
+        <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+          @for (option of filteredOptions2 | async; track option) {
+          <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button (click)="clearUnit2()" class="clear-input-btn">✕</button>
+  </div>
   <br><br>
   <!--  -->
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Unit 3</mat-label>
-      <input type="text" placeholder="Pick one" aria-label="Unit3" matInput [formControl]="myControl3"
-        (change)="onSelectedUnit3Change(myControl3.value || '')" [matAutocomplete]="auto3">
-      <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
-        @for (option of filteredOptions3 | async; track option) {
-        <mat-option [value]="option">{{option}}</mat-option>
-        }
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
+  <div class="form-with-button">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Unit 3</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Unit3" matInput [formControl]="myControl3"
+          (change)="onSelectedUnit3Change(myControl3.value || '')" [matAutocomplete]="auto3">
+        <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+          @for (option of filteredOptions3 | async; track option) {
+          <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button (click)="clearUnit3()" class="clear-input-btn">✕</button>
+  </div>
   <br><br>
 </div>
 
