@@ -40,7 +40,7 @@ export class App {
   id = "1aAIq86-QbH_3wBFETPTfyEgoX3XqGLIm_ENvAdvM8ks"
   guid = "290342333";
   parsedData: any[] = [];
-  /*  */
+
   myControl1 = new FormControl('');
   myControl2 = new FormControl('');
   myControl3 = new FormControl('');
@@ -53,7 +53,6 @@ export class App {
 
     return this.units.filter((option: any) => option.toLowerCase().includes(filterValue));
   }
-  /*  */
 
   constructor(private _sanitizer: DomSanitizer, private http: HttpClient) {
     this.filteredOptions1 = this.myControl1.valueChanges.pipe(
@@ -76,8 +75,6 @@ export class App {
       .subscribe(data => {
         this.parsedData = this.parseCSV(data);
         this.data = this.parseComps(this.parsedData);
-        this.units = Array.from(new Set(this.data.flatMap((d: any) => d.targets)));
-        console.log("loaded data:", this.data);
         setTimeout(() => {
           this.isLoading.set(false);
         }, 2000);
@@ -109,9 +106,7 @@ export class App {
     this.selectedUnit3 = "";
   }
   search() {
-    //console.log("searching for:", this.selectedUnit1, this.selectedUnit2, this.selectedUnit3);
     this.solution = this.searchSolution();
-    //console.log("search:", this.solution);
   }
 
   searchSolution() {
@@ -138,45 +133,37 @@ export class App {
   onSelectedUnit1Change(unit1: string) {
     this.selectedUnit1 = this.myControl1.value || "";
   }
+
   onSelectedUnit2Change(unit2: string) {
     this.selectedUnit2 = this.myControl2.value || "";
   }
+
   onSelectedUnit3Change(unit3: string) {
     this.selectedUnit3 = this.myControl3.value || "";
   }
+
   getUnitImageUrl(name: string) {
     return `https://epic7db.com/images/heroes/${this.getUrlUnitName(name.toLowerCase())}.webp`
   }
+
   getArtiImageUrl(name: string) {
     return `https://epic7db.com/images/artifacts/${this.getUrlArtiName(name.toLowerCase())}.webp`
   }
-  /* getSanitizedVideo1(url: string) {
-    console.log("getSanitizedVideo pre:", url);
-    console.log("getSanitizedVideo post:", this._sanitizer.bypassSecurityTrustResourceUrl(this.getEmbedUrl(url)));
-    return this._sanitizer.bypassSecurityTrustResourceUrl(this.getEmbedUrl(url));
-  } */
+
   getSanitizedBuild(url: string) {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  /* getEmbedUrl(url: string) {
-    const match = url.match(
-      /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^?&/]+)/
-    );
-    return match ? `https://www.youtube.com/embed/${match[1]}` : "";
-  } */
+
   getSanitizedVideo(url: string) {
-    // Extract video ID from normal YouTube URL
     const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^?&/]+)/);
     const videoId = match ? match[1] : '';
 
     const embedUrl = `https://www.youtube.com/embed/${videoId}`;
 
-    // Use DomSanitizer to mark the URL as safe
     return this._sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 
   getUrlUnitName(name: string) {
-    //console.log("getUrlUnitName:", name);
     const map = new Map([
       ["apoc", "apocalypse-ravi"],
       ["barunka", "boss-arunka"],
@@ -234,6 +221,7 @@ export class App {
       ["prophetic candlestick", "prophetic-candlestick"],
       ["a symbol of unity", "a-symbol-of-unity"],
       ["beguiling wings", "beguiling-wings"],
+      ["guardian ice crystals", "guardian-ice-crystals"],
     ]);
 
     return map.get(name.toLowerCase()) ?? name;
@@ -259,7 +247,6 @@ export class App {
         current = [v];
       } else {
         if (current.length === 0) {
-          // skip items before the first code
           continue;
         }
         current.push(v);
@@ -275,7 +262,6 @@ export class App {
   }
 
   parseComps(arr: string | any[]) {
-    //console.log("parseComps:", arr);
     const marker = "- example";
     let result: any[] = [];
 
