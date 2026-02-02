@@ -27,8 +27,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class App {
   protected readonly title = signal('e7_gw');
-  //ng b --output-path docs --base-href /e7_guild_war/
-  //copy files from browser to docs folder
+  // ng b --output-path docs --base-href /e7_guild_war/
+  // copy files from browser to docs folder
+  // copy docs\browser\*.* docs\
 
   data: any;
   units = [];
