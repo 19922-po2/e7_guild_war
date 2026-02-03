@@ -76,6 +76,7 @@ export class App {
       .subscribe(data => {
         this.parsedData = this.parseCSV(data);
         this.data = this.parseComps(this.parsedData);
+        this.units = Array.from(new Set(this.data.flatMap((d: any) => d.targets)));
         setTimeout(() => {
           this.isLoading.set(false);
         }, 2000);
