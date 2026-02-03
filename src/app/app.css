@@ -53,7 +53,7 @@
 .clear-input-btn {
     margin-left: 0px;
     margin-top: 40px;
-    padding: 8px 12px;
+    padding: 3px 3px;
     background-color: #6b7280;
     color: #ffffff;
     border: none;
@@ -96,6 +96,7 @@ div>form {
 
 mat-form-field {
     background-color: #2b2f36;
+    border-radius: 20px;
 }
 
 .strategy-layout {
@@ -244,6 +245,7 @@ mat-form-field {
 
 ::ng-deep .mdc-text-field--filled {
     background-color: #2b2f36 !important;
+    border-radius: 20px !important;
 }
 
 ::ng-deep .mdc-text-field--filled .mdc-text-field__input {

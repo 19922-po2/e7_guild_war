@@ -66,7 +66,7 @@
 <button (click)="clear()" class="clear-btn">Clear</button>
 
 <div class="solution-container">
-  <h1 style="color: #CCCCCC;">Solution:</h1>
+  <h1 style="color: #CCCCCC;" *ngIf="solution && solution !== 'none'">Solution:</h1>
   <!--  no solution -->
   <div *ngIf="solution === 'none'">
     <p style="color: #CCCCCC;">No Solution Found</p>

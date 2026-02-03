@@ -27,8 +27,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class App {
   protected readonly title = signal('e7_gw');
+  // -build for github pages-
   // ng b --output-path docs --base-href /e7_guild_war/
-  // copy files from browser to docs folder
+  // -copy files from browser to docs folder-
   // copy docs\browser\*.* docs\
 
   data: any;
@@ -41,6 +42,10 @@ export class App {
   id = "1aAIq86-QbH_3wBFETPTfyEgoX3XqGLIm_ENvAdvM8ks"
   guid = "290342333";
   parsedData: any[] = [];
+  nameMappingIds = "1tvpvLpc-x54JaEu7XY0QdGVLQ7zFBfFgLlgFtpYw1GQ";
+  nameMappingGuid = "0";
+  unitNameMap: Map<string, string> = new Map();
+  artiNameMap: Map<string, string> = new Map();
 
   myControl1 = new FormControl('');
   myControl2 = new FormControl('');
@@ -80,6 +85,20 @@ export class App {
         setTimeout(() => {
           this.isLoading.set(false);
         }, 2000);
+      });
+    this.http.get(`https://docs.google.com/spreadsheets/d/${this.nameMappingIds}/export?format=csv&gid=${this.nameMappingGuid}`, { responseType: 'text' })
+      .subscribe(data => {
+        data.trim().split("\n").forEach(line => {
+          const [heroName, heroSlug, , artifactName, artifactSlug] = line.split(",").map(v => v?.trim());
+
+          if (heroName && heroSlug) {
+            this.unitNameMap.set(heroName.toLowerCase(), heroSlug);
+          }
+
+          if (artifactName && artifactSlug) {
+            this.artiNameMap.set(artifactName.toLowerCase(), artifactSlug);
+          }
+        });
       });
   }
 
@@ -166,67 +185,11 @@ export class App {
   }
 
   getUrlUnitName(name: string) {
-    const map = new Map([
-      ["apoc", "apocalypse-ravi"],
-      ["barunka", "boss-arunka"],
-      ["ml yulha", "school-nurse-yulha"],
-      ["gras", "genesis-ras"],
-      ["frieren", "frieren"],
-      ["harsetti", "harsetti"],
-      ["setsuka", "setsuka"],
-      ["bbk", "blood-blade-karin"],
-      ["lady", "lady-of-the-scales"],
-      ["lady of the scales", "lady-of-the-scales"],
-      ["bwa", "bystander-hwayoung"],
-      ["leira", "lone-wolf-peira"],
-      ["rinak", "rinak"],
-      ["tekron", "twisted-eidolon-kayron"],
-      ["dark achates", "shooting-star-achates"],
-      ["belian", "belian"],
-      ["elvira", "elvira"],
-      ["aram", "aram"],
-      ["elynav", "empyrean-ilynav"],
-      ["hecate", "hecate"],
-      ["young senya", "young-senya"],
-      ["festive eda", "festive-eda"],
-      ["benimaru", "benimaru"],
-      ["bdom", "moon-bunny-dominiel"],
-      ["moona", "new-moon-luna"],
-      ["mort", "mort"],
-      ["shoux", "urban-shadow-choux"],
-      ["ruele", "ruele-of-light"],
-      ["singie", "sinful-angelica"],
-      ["elynav", "empyrean-ilynav"],
-    ]);
-
-    return map.get(name.toLowerCase()) ?? name;
+    return this.unitNameMap.get(name.toLowerCase()) ?? name;
   }
 
   getUrlArtiName(name: string) {
-    const map = new Map([
-      ["war horn", "war-horn"],
-      ["queen's whistle", "queens-whistle"],
-      ["shepherd of the hollow", "shepherd-of-the-hollow"],
-      ["3f", "3f"],
-      ["bastion of hope", "bastion-of-hope"],
-      ["touch of rekos", "touch-of-rekos"],
-      ["rise of a monarch", "rise-of-a-monarch"],
-      ["a precious connection", "a-precious-connection"],
-      ["tagehel's ancient book", "tagehels-ancient-book"],
-      ["uberius' tooth", "uberius-tooth"],
-      ["proof of friendship", "proof-of-friendship"],
-      ["benimaru's tachi", "benimarus-tachi"],
-      ["proof of valor", "proof-of-valor"],
-      ["aurius", "aurius"],
-      ["sweet miracle", "sweet-miracle"],
-      ["adamant shield", "adamant-shield"],
-      ["prophetic candlestick", "prophetic-candlestick"],
-      ["a symbol of unity", "a-symbol-of-unity"],
-      ["beguiling wings", "beguiling-wings"],
-      ["guardian ice crystals", "guardian-ice-crystals"],
-    ]);
-
-    return map.get(name.toLowerCase()) ?? name;
+    return this.artiNameMap.get(name.toLowerCase()) ?? name;
   }
 
   csvToStrings(csvText: string): string[] {
