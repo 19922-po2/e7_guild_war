@@ -40,7 +40,7 @@ export class App {
   solution: any = null;
   isLoading = signal(false);
   id = "1aAIq86-QbH_3wBFETPTfyEgoX3XqGLIm_ENvAdvM8ks"
-  guid = "290342333";
+  guid = "238137928";
   parsedData: any[] = [];
   nameMappingIds = "1tvpvLpc-x54JaEu7XY0QdGVLQ7zFBfFgLlgFtpYw1GQ";
   nameMappingGuid = "0";
@@ -91,6 +91,7 @@ export class App {
         data.trim().split("\n").forEach(line => {
           const [heroName, heroSlug, , artifactName, artifactSlug] = line.split(",").map(v => v?.trim());
 
+          console.log("mapping line:", { heroName, heroSlug, artifactName, artifactSlug });
           if (heroName && heroSlug) {
             this.unitNameMap.set(heroName.toLowerCase(), heroSlug);
           }
@@ -99,6 +100,16 @@ export class App {
             this.artiNameMap.set(artifactName.toLowerCase(), artifactSlug);
           }
         });
+      });
+  }
+
+  getAllUnits() {
+    this.http.get(`http://localhost:3000/api/epic7/heroes`, { responseType: 'text' })
+      .subscribe(data => {
+        console.log("raw data:", data);
+        setTimeout(() => {
+          this.isLoading.set(false);
+        }, 2000);
       });
   }
 
@@ -168,7 +179,7 @@ export class App {
   }
 
   getArtiImageUrl(name: string) {
-    return `https://epic7db.com/images/artifacts/${this.getUrlArtiName(name.toLowerCase())}.webp`
+    return `https://epic7db.com/images/artifacts/${this.getUrlArtiName(name.toLowerCase().replace(/^['"]|['"]$/g, ""))}.webp`
   }
 
   getSanitizedBuild(url: string) {
@@ -193,6 +204,7 @@ export class App {
   }
 
   csvToStrings(csvText: string): string[] {
+    //console.log("raw csv:", csvText.split(/,{2,}/).map(s => s.replace(/\r?\n/g, ' ').trim()).filter(s => s.length > 0));
     return csvText
       .split(/,{2,}/)
       .map(s => s.replace(/\r?\n/g, ' ').trim())
@@ -218,6 +230,7 @@ export class App {
       }
     }
     if (current.length) blocks.push(current);
+    //console.log("blocks:", blocks);
     return blocks;
   }
 
@@ -237,7 +250,7 @@ export class App {
 
       result.push({
         code: block[0],
-        targets: block[1].split(" / ").map((t: string) => t.trim()),
+        targets: block[1].split(",").map((t: string) => t.trim()),
         strat: block[4].replace(/^"-/, '-'),
         units: [
           {
